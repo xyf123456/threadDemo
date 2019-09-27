@@ -53,6 +53,7 @@ public class Bubbling {
      * description: TODO 排序的写法
      * create time: 2019/9/26 22:15
      * [arr]
+     *
      * @return void
      */
     public static void bubbleSort(int[] arr) {
@@ -62,25 +63,32 @@ public class Bubbling {
             return;
         }
         //需要进行arr.length趟比较
-        for (int i = 0; i <arr.length-1 ; i++) {
+        for (int i = 0; i < arr.length - 1; i++) {
+            int flag = 0;//每一趟交换元素的标识
             //第i趟比较
-            for (int j = 0; j < arr.length-1-i; j++) {
+            for (int j = 0; j < arr.length - 1 - i; j++) {
                 //开始进行比较，如果arr[j]比arr[j+1]的值大，那就交换位置
-                if (arr[j]>arr[j+1]){
+                if (arr[j] > arr[j + 1]) {
                     int temp = arr[j];
-                    arr[j]=arr[j+1];
-                    arr[j+1]=temp;
+                    arr[j] = arr[j + 1];
+                    arr[j + 1] = temp;
+                    flag = 1;
                 }
             }
+            if (flag==0){//如果没有交换过元素，则已经有序，则跳出for循环
+                break;
+            }
+
         }
         System.out.println("最终得出的数组为：");
-        for (int i = 0; i <arr.length ; i++) {
-            System.out.print(arr[i]+" ");
+        for (int i = 0; i < arr.length; i++) {
+            System.out.print(arr[i] + " ");
         }
     }
 
     public static void main(String[] args) {
-        int[] arr = {10,1,35,61,89,36,55};
+        int[] arr = {10, 1, 35, 61, 89, 36, 55};
+        int[] arr1 = {1, 10, 35, 36, 55, 61, 89};
         Bubbling.bubbleSort(arr);
     }
 }
