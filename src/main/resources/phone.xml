@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><phoneInfo>
+    <brand id="brand1" name="华为">
+        <type name="U8650"/>
+    </brand>
+    <brand name="苹果">
+        <type name="iPhoneX"/>
+        <type name="iPhone11"/>
+    </brand>
+    <brand name="三星">
+        <type name="Note12"/>
+        <type name="Note13"/>
+        <type name="Note14"/>
+    </brand>
+</phoneInfo>
