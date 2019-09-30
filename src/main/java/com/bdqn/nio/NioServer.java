@@ -2,10 +2,14 @@ package com.bdqn.nio;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
+import java.nio.Buffer;
+import java.nio.ByteBuffer;
 import java.nio.channels.SelectionKey;
 import java.nio.channels.Selector;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -26,7 +30,7 @@ public class NioServer {
 
         /**
          *  1、创建Selector
-         */
+                */
         Selector selector = Selector.open();
         /**
          *  2、通过ServerSocketChannel创建Channel对象
@@ -67,9 +71,15 @@ public class NioServer {
                 /**
                  *  如果是接入事件
                  */
+                if (selectionKey.isAcceptable()){
+                    acceptHandler(serverSocketChannel,selector);
+                }
                 /**
                  *  如果是可读事件
                  */
+                if (selectionKey.isReadable()){
+                    readHandler(selectionKey,selector);
+                }
             }
         }
 
@@ -88,23 +98,48 @@ public class NioServer {
      * Date: 2019/9/30 11:41
      */
     public void acceptHandler(ServerSocketChannel serverSocketChannel,
-                                Selector selector) throws IOException {
+                              Selector selector) throws IOException {
 
 //       创建SocketChannel
-        SocketChannel socketChannel=serverSocketChannel.accept();
+        SocketChannel socketChannel = serverSocketChannel.accept();
 //       将SocketChannel设置为非阻塞工作模式
         socketChannel.configureBlocking(false);
 //       将SocketChannel对象注册到Selector上，监听，可读事件
-        socketChannel.register(selector,SelectionKey.OP_READ);
+        socketChannel.register(selector, SelectionKey.OP_READ);
 //       回复客户端的提示信息
+        socketChannel.write(StandardCharsets.UTF_8.encode("你和聊天室的其他人都不是朋友关系，请注意隐私安全！"));
     }
+
     /**
      * Description: TODO 可读事件
      * param: []
      * return: void
      * Date: 2019/9/30 11:20
      */
-    public void readHandler(){
+    public void readHandler(SelectionKey selectionKey, Selector selector) throws IOException {
+//        要从SelectionKey中获取到已经就绪的channel
+        SocketChannel socketChannel = (SocketChannel) selectionKey.channel();
+//        创建buffer
+        ByteBuffer byteBuffer = ByteBuffer.allocate(1024);
+//        循环读取客户端请求信息
+        String request = "";
+        while (socketChannel.read(byteBuffer) > 0) {
+//            切换buffer为读模式
+            byteBuffer.flip();
+//            读取buffer中的内容
+            request += StandardCharsets.UTF_8.decode(byteBuffer);
+        }
+//        将 channel再次注册到selector上，监听他的可读时间
+        socketChannel.register(selector, SelectionKey.OP_READ);
 
+        if (request.length() > 0) {
+            //        将客户端发送的请求信息，广播给其他客户端
+            System.out.println("::"+request);
+        }
+    }
+
+    public static void main(String[] args) throws IOException {
+        NioServer nioServer = new NioServer();
+        nioServer.start();
     }
 }
