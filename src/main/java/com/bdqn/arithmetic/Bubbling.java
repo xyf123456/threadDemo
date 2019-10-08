@@ -88,7 +88,7 @@ public class Bubbling {
 
     public static void main(String[] args) {
         int[] arr = {10, 1, 35, 61, 89, 36, 55};
-        int[] arr1 = {1, 10, 35, 36, 55, 61, 89};
+//        int[] arr1 = {1, 10, 35, 36, 55, 61, 89};
         Bubbling.bubbleSort(arr);
     }
 }

@@ -20,8 +20,15 @@ public class JsonUtilTest {
     public void tearDown() throws Exception {
     }
 
+    /**
+     * Description: TODO 测试JSON数据和String类型的数据之间的转化
+     * param: []
+     * return: void
+     * Date: 2019/10/8 11:33
+     */
     @Test
     public void listToJson() throws Exception {
+
         /*Student student1 = new Student(1,"张三");
         Student student2 = new Student(1,"李四");
         Teacher teacher1 = new Teacher("张老师",23);
@@ -44,6 +51,27 @@ public class JsonUtilTest {
              list) {
             System.out.println(s);
         }
+    }
+
+    /**
+     * Description: TODO 进制转换之间的测试
+     * param: []
+     * return: void
+     * Date: 2019/10/8 11:41
+     */
+    @Test
+    public void test(){
+        int i1 = 1;
+        int i2 = 100;
+//        Integer.toHexString(i1);
+//        Integer.toHexString(i2);
+        System.out.println("二进制:"+Integer.toBinaryString(i1));
+        System.out.println("二进制:"+Integer.toBinaryString(i2));
+        System.out.println("八进制:"+Integer.toOctalString(i2));
+        System.out.println("十六进制:"+Integer.toHexString(i2));
+        System.out.println("三进制:"+Integer.toString(i2,3));
+        System.out.println(10<<4);
+        System.out.println(1>>2);
     }
 
 }

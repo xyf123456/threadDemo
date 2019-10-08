@@ -31,8 +31,9 @@ public class NioClient {
         SocketChannel socketChannel = SocketChannel.open(new InetSocketAddress("127.0.0.1", 8000));
 
         /**
-         * 接受服务器端的相应,通过线程
+         * 接受服务器端的响应,通过线程
          * 新开线程，专门负责接受服务器端的响应数据
+         * 开启选择器，设置为非阻塞模式，在选择器上注册读事件，开启线程读取数据
          */
         Selector selector = Selector.open();
         socketChannel.configureBlocking(false);
