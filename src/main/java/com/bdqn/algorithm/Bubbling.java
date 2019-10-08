@@ -1,4 +1,4 @@
-package com.bdqn.arithmetic;
+package com.bdqn.algorithm;
 
 /**
  * ClassName: Bubbling
