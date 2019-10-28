@@ -23,11 +23,14 @@ public class StudentTest {
         //        Student student1 = new Student();
         Student student1 = new Student(1, "张三", 23);
         Student student2 = new Student(2, "张三", 23);
-        System.out.println(student1);
-        System.out.println(student2);
-        System.out.println(student1 == student2);
+        Set<Student> studentSet = new HashSet<>();
+        studentSet.add(student1);
+        studentSet.add(student2);
         System.out.println(student1.equals(student2));
-    }
+        System.out.println(student1.hashCode()==student2.hashCode());
+        System.out.println(studentSet);
+        System.out.println(2<<5);
+}
 
     @Test
     public void test1() throws Exception {
@@ -93,7 +96,7 @@ public class StudentTest {
      * @ return void
      */
     @Test
-    public void testLa() throws Exception {
+    public void testLambda() throws Exception {
        /* 对于耗时的操作用lambda表达式的for循环，如数据库的IO操作，多线程充分利用CPU资源；
         对于不太耗时的操作使用普通for循环，比如纯CPU计算类型的操作，单线程性能更高，减少上
         下文切换的开销。*/
@@ -173,17 +176,20 @@ public class StudentTest {
         Student student1 = new Student(1, "张三", 23);
         Student student2 = new Student(2, "李四", 33);
         Student student3 = new Student(3, "王五", 15);
+        Student student4 = new Student(4, "徐柳", 88);
         List<Student> students = new ArrayList<>();
         students.add(student1);
         students.add(student3);
         students.add(student2);
+        students.add(student4);
         students.stream().forEach(student -> {
             System.out.println(student);
         });
-        Collections.sort(students);
+//        Collections.sort(students);
         System.out.println("排序后:");
         students.stream().forEach(student -> {
             System.out.println(student);
         });
     }
+
 }

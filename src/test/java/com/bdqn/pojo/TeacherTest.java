@@ -26,20 +26,23 @@ public class TeacherTest {
         Teacher teacher2 = new Teacher("李四", 54);
         Teacher teacher3 = new Teacher("王五", 12);
         Teacher teacher4 = new Teacher("许六", 33);
-//        List<Teacher> teacherList = Arrays.asList(teacher1, teacher2, teacher3, teacher4);
-        List<Teacher> teacherList = new ArrayList<>();
+        List<Teacher> teacherList = Arrays.asList(teacher1, teacher2, teacher3, teacher4);
+       /* List<Teacher> teacherList = new ArrayList<>();
         teacherList.add(teacher1);
         teacherList.add(teacher2);
         teacherList.add(teacher3);
-        teacherList.add(teacher4);
+        teacherList.add(teacher4);*/
+        Collections.sort(teacherList);
         teacherList.parallelStream().forEach(teacher -> {
             System.out.println(teacher);
         });
         // 1. 可以实现自己的外部接口进行排序
-      /*  Collections.sort(teacherList, new AscComparator());
+       /* System.out.println("排序后:");
+        teacherList.sort(new AscComparator());
         System.out.println(teacherList);*/
 //        单独测试AscComparator
-       /* AscComparator ascComparator = new AscComparator();
+       /* System.out.println("排序后:");
+        AscComparator ascComparator = new AscComparator();
         int result=ascComparator.compare(teacher1,teacher2);
         System.out.println(result);*/
 
